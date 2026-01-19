@@ -150,12 +150,12 @@ export class AzureLogAnalytics implements INodeType {
 		const clientId = credentials.clientId as string;
 		const clientSecret = credentials.clientSecret as string;
 
-		// Build form body for token request
+		// Build form body for token request (using v2.0 endpoint with scope)
 		const tokenBody = [
 			'grant_type=client_credentials',
 			`client_id=${encodeURIComponent(clientId)}`,
 			`client_secret=${encodeURIComponent(clientSecret)}`,
-			'resource=https://api.loganalytics.azure.com',
+			'scope=https://api.loganalytics.io/.default',
 		].join('&');
 
 		// Get OAuth2 access token
@@ -163,7 +163,7 @@ export class AzureLogAnalytics implements INodeType {
 		try {
 			const tokenResponse = await this.helpers.httpRequest({
 				method: 'POST' as IHttpRequestMethods,
-				url: `https://login.microsoftonline.com/${tenantId}/oauth2/token`,
+				url: `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded',
 				},
@@ -199,7 +199,7 @@ export class AzureLogAnalytics implements INodeType {
 
 					const response = await this.helpers.httpRequest({
 						method: 'POST' as IHttpRequestMethods,
-						url: `https://api.loganalytics.azure.com/v1/workspaces/${workspaceId}/query`,
+						url: `https://api.loganalytics.io/v1/workspaces/${workspaceId}/query`,
 						headers: {
 							Authorization: `Bearer ${accessToken}`,
 							'Content-Type': 'application/json',
