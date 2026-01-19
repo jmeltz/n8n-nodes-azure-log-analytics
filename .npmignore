@@ -1,0 +1,9 @@
+*.ts
+!dist/**/*.d.ts
+*.map
+tsconfig.json
+gulpfile.js
+.eslintrc.*
+.prettierrc
+node_modules/
+*.txt

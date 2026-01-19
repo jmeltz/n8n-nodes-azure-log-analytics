@@ -1,0 +1,66 @@
+{
+  "name": "n8n-nodes-azure-log-analytics",
+  "version": "0.1.0",
+  "description": "n8n node to query Azure Monitor Log Analytics workspaces using KQL",
+  "keywords": [
+    "n8n-community-node-package",
+    "azure",
+    "log analytics",
+    "monitor",
+    "kql",
+    "kusto"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/jmeltz/n8n-nodes-azure-log-analytics",
+  "author": {
+    "name": "Jake Meltzer",
+    "url": "https://github.com/jmeltz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmeltz/n8n-nodes-azure-log-analytics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jmeltz/n8n-nodes-azure-log-analytics/issues"
+  },
+  "engines": {
+    "node": ">=18.10",
+    "pnpm": ">=9.1"
+  },
+  "packageManager": "pnpm@9.1.4",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint 'nodes/**/*.ts' 'credentials/**/*.ts' package.json",
+    "lintfix": "eslint 'nodes/**/*.ts' 'credentials/**/*.ts' package.json --fix",
+    "prepublishOnly": "pnpm build && eslint -c .eslintrc.prepublish.js 'nodes/**/*.ts' 'credentials/**/*.ts' package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/AzureLogAnalyticsOAuth2Api.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/AzureLogAnalytics/AzureLogAnalytics.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.1",
+    "gulp": "^4.0.2",
+    "n8n-workflow": "*",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
